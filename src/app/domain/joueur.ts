@@ -1,0 +1,1 @@
+export type Joueur = 'Joueur1' | 'Joueur2';

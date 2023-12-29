@@ -5,14 +5,14 @@ import { Partie } from "../partie";
 
 describe('Partie', () => {
     let partie: Partie;
-    let grille: Grille;
+    let grille: Grille = new Grille();
 
     beforeEach(() => {
-        grille = new Grille();
-        partie = new Partie(grille);
+        partie = new Partie();
     });
 
     it('doit initialiser la partie avec une grille', () => {
+        partie.start();
         expect(partie).toBeDefined();
         expect(partie instanceof Partie).toBeTruthy();
         expect(partie['grille']).toEqual(grille); 
@@ -52,7 +52,7 @@ describe('Partie', () => {
         partie.playMove(new Move("Joueur2",[1,1]));
         expect(partie['currentPlayer']).toEqual("Joueur1");
     });
-+
+
     it('doit declencher une erreur on joue un coup en dehors de la grille', () => {
         expect(() => {
             partie.start();

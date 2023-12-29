@@ -13,7 +13,7 @@ export class Move{
               return this.position;
        }
 
-       public getPlayer():string{
+       public getPlayer():Joueur{
               return this.player;
        }
 }

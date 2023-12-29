@@ -1,0 +1,20 @@
+<h1>Morpion</h1>
+<div *ngIf="game?.getCurrentPlayer()">
+    <p>Player {{ game?.getCurrentPlayer() }} turn</p>
+</div>
+<div>
+    <table>
+        <tbody>
+            <tr *ngFor="let row of [0, 1, 2]">
+                <td *ngFor="let col of [0, 1, 2]" (click)="cellClicked(row, col)">
+                  <p> {{array[row][col]}}</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="game?.getWinner()">
+    <p>Player {{ game?.getWinner() }} wins!</p>
+</div>
+<button (click)="newGame()">new game</button>

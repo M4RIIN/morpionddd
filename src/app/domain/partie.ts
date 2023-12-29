@@ -3,20 +3,23 @@ import { Joueur } from "./joueur";
 import { Move } from "./move";
 
 export class Partie{
-    private grille:Grille;
+    private grille:Grille = new Grille();
     private joueurs:string[] = ['Joueur1', 'Joueur2'];
     private currentPlayer: Joueur = 'Joueur1';
     private isStarted:boolean = false;
     private winner:string = "";
 
 
-    constructor(grille:Grille){
-        this.grille = grille;
+    constructor(){
     }
 
     
     public getWinner(){
         return this.winner;
+    }
+
+    public getGrille():Grille{
+        return this.grille;
     }
 
     public start():void{
@@ -34,6 +37,14 @@ export class Partie{
         this.changeJoueur();
     }
 
+    public getCurrentPlayer():Joueur{
+        return this.currentPlayer;
+    }
+
+    public isMoveDone(row:number,col:number){
+        this.grille.checkMoveIsPlayedMove(new Move(this.currentPlayer,[row,col]))
+    }
+
     private checkIfGameIsStarted(){
         if(this.isStarted === false){
             throw new Error("game not started yet");
@@ -47,14 +58,14 @@ export class Partie{
     }
 
     private checkHorizontalWinningMove(move:Move){
-        const neighbors = this.grille.getHorizontalNeighbor(move.getPosition());
+        const neighbors = this.grille.getHorizontalNeighbor(move.getPosition(),move.getPlayer());
         if(neighbors.length === 3){
             this.winner = move.getPlayer();
         }
     }
 
     private checkVerticalWinningMove(move:Move){
-        const neighbors = this.grille.getVerticalNeighbor(move.getPosition());
+        const neighbors = this.grille.getVerticalNeighbor(move.getPosition(),move.getPlayer());
         if(neighbors.length === 3){
             this.winner = move.getPlayer();
         }
@@ -62,7 +73,7 @@ export class Partie{
 
     
     private checkDiagonalWinningMove(move:Move){
-        const neighbors = this.grille.getDiagonalNeighborNeighbor(move.getPosition());
+        const neighbors = this.grille.getDiagonalNeighborNeighbor(move.getPosition(),move.getPlayer());
         if(neighbors.length === 3){
             this.winner = move.getPlayer();
         }
